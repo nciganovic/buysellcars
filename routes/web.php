@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn() => view("main.index")); //[ProductController::class, 'get_items']);
+Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
+Route::get('/admin/index', [AdminController::class, 'get_index'])->name("get_admin_index");
