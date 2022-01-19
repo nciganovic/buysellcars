@@ -35,7 +35,7 @@
                     <a class="nav-link" href="#">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Admin</a>
+                    <a class="nav-link" href="{{ route("get_admin_index") }}">Admin</a>
                 </li>
                 
             </ul>
