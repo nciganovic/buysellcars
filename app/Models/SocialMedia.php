@@ -11,4 +11,9 @@ class SocialMedia extends Model
 
     public $table = "social_medias";
     public $timestamps = true;
+
+    public function get_items()
+    {
+        return SocialMedia::all();
+    }
 }

@@ -3,7 +3,20 @@
     Admin page for Bug&Sell Cars
 @endsection
 @section('content')
-    <h1>Admin page</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <h1 class="text-center">Admin page</h1>
+        </div>
+        <div class="col-12 mt-3">
+            <div class="list-group">
+                <a href="{{ route("get_admin_social_media") }}" class="list-group-item list-group-item-action">
+                  Social Medias
+                </a>
+            </div>
+        </div>
+    </div>
+</div>    
     
 @endsection
 @section('scripts')

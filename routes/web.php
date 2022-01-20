@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
 Route::get('/admin/index', [AdminController::class, 'get_index'])->name("get_admin_index");
+Route::get('/admin/social-media', [AdminController::class, 'get_social_media'])->name("get_admin_social_media");
