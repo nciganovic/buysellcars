@@ -12,21 +12,27 @@
             <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Url</th>
                     <th scope="col">Logo</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                  </tr>
+                    @foreach ($data as $d)
+                    <tr>
+                        <td>{{ $d->id }}</td>
+                        <td>{{ $d->name }}</td>
+                        <td>{{ $d->url }}</td>
+                        <td>{{ $d->logo }}</td>
+                        <td>
+                            <a class="btn btn-warning" href="#">Update</a>
+                            <a class="btn btn-danger" href="#">Delete</a>
+                        </td>
+                    </tr>   
+                    @endforeach
+                  
                 </tbody>
               </table>
         </div>

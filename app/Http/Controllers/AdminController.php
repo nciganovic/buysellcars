@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function get_social_media()
     {
         $model = new SocialMedia();
-        $data = $model->get_items();
-        return view("admin.social-media", $data);
+        $data = $model->get_all_items();
+        return view("admin.social-media", ["data" => $data]);
     }
 }
