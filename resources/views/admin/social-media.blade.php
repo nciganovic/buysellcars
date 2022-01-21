@@ -27,14 +27,17 @@
                         <td>{{ $d->url }}</td>
                         <td>{{ $d->logo }}</td>
                         <td>
-                            <a class="btn btn-warning" href="#">Update</a>
-                            <a class="btn btn-danger" href="#">Delete</a>
+                            <a class="btn btn-warning" href="{{ route("get_admin_social_media_by_id", ["id" => $d->id]) }}">Update</a>
+                            <a class="btn btn-danger" href="{{ route("get_admin_social_media_by_id", ["id" => $d->id]) }}">Delete</a>
                         </td>
                     </tr>   
                     @endforeach
                   
                 </tbody>
               </table>
+            <div>
+                <a class="btn btn-success" href="{{ route("get_create_admin_social_media") }}">Create</a>
+            </div>
         </div>
     </div>
 </div>    

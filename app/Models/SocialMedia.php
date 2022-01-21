@@ -16,4 +16,9 @@ class SocialMedia extends Model
     {
         return SocialMedia::all();
     }
+
+    public function insert_item($name, $url, $logo)
+    {
+        return SocialMedia::all();
+    }
 }
