@@ -13,9 +13,11 @@
                 <a href="{{ route("get_admin_social_media") }}" class="list-group-item list-group-item-action">
                   Social Medias
                 </a>
-                <a href="{{ route("get_admin_city") }}" class="list-group-item list-group-item-action">
-                    City
-                </a>
+                @foreach ($tables as $table)
+                    <a href="{{ route("get_admin_simple_table", ["table" => $table]) }}" class="list-group-item list-group-item-action">
+                        {{ ucwords(str_replace("_", " ", $table)) }}
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>
