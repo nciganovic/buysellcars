@@ -23,6 +23,7 @@ class CitySeeder extends Seeder
         {
             DB::table('cities')->insert([
                 "name" => $faker->city,
+                "order" => $i, 
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }
