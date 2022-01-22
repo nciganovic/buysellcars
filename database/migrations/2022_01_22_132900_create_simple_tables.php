@@ -1,13 +1,12 @@
 <?php
 
+use App\Models\SimpleTable;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateSimpleTables extends Migration
-{
-    public $tables = ["brands", "car_bodies", "engine_emissions", "equipments", "fuels"];
-    
+{ 
     /**
      * Run the migrations.
      *
@@ -15,7 +14,7 @@ class CreateSimpleTables extends Migration
      */
     public function up()
     {
-        foreach($this->tables as $t)
+        foreach(SimpleTable::$tables as $t)
         {
             Schema::create($t, function (Blueprint $table) {
                 $table->id();
@@ -33,9 +32,9 @@ class CreateSimpleTables extends Migration
      */
     public function down()
     {
-        foreach($this->tables as $table)
+        foreach(SimpleTable::$tables as $table)
         {
-            Schema::dropIfExists('brand');
+            Schema::dropIfExists($table);
         }
     }
 }
