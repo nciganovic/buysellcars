@@ -33,7 +33,7 @@
                             <form action="{{ route("delete_admin_social_media", ["id" => $d->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger" title="Delete">Delete</button>
+                                <button id="remove-item-btn" onclick="return confirm('Do you really want to delete?')" class="btn btn-danger" title="Delete">Delete</button>
                             </form>
                         </td>
                     </tr>   
@@ -50,5 +50,5 @@
     
 @endsection
 @section('scripts')
-   
+   <script src="{{ asset("js/admin/remove-item.js") }}"></script>
 @endsection
