@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SocailMediaSeeder::class,
             CitySeeder::class,
+            SimpleTableSeeder::class
         ]);
     }
 }
