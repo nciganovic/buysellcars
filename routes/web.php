@@ -20,4 +20,6 @@ Route::get('/admin/index', [AdminController::class, 'get_index'])->name("get_adm
 Route::get('/admin/social-media', [AdminController::class, 'get_social_media'])->name("get_admin_social_media");
 Route::get('/admin/social-media/create', [AdminController::class, 'get_create_social_media'])->name("get_create_admin_social_media");
 Route::post('/admin/social-media/create', [AdminController::class, 'post_create_social_media'])->name("post_create_admin_social_media");
-Route::get('/admin/social-media/{id}', [AdminController::class, 'get_social_media_by_id'])->name("get_admin_social_media_by_id");
+Route::get('/admin/social-media/edit/{id}', [AdminController::class, 'get_edit_social_media'])->name("get_edit_admin_social_media");
+Route::post('/admin/social-media/edit/{id}', [AdminController::class, 'post_edit_social_media'])->name("post_edit_admin_social_media");
+Route::delete('/admin/social-media/delete/{id}', [AdminController::class, 'delete_social_media'])->name("delete_admin_social_media");

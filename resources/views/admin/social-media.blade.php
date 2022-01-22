@@ -26,9 +26,15 @@
                         <td>{{ $d->name }}</td>
                         <td>{{ $d->url }}</td>
                         <td>{{ $d->logo }}</td>
-                        <td>
-                            <a class="btn btn-warning" href="{{ route("get_admin_social_media_by_id", ["id" => $d->id]) }}">Update</a>
-                            <a class="btn btn-danger" href="{{ route("get_admin_social_media_by_id", ["id" => $d->id]) }}">Delete</a>
+                        <td class="d-flex">
+                            <div class="me-3">
+                                <a class="btn btn-warning" href="{{ route("get_edit_admin_social_media", ["id" => $d->id]) }}">Update</a>
+                            </div>
+                            <form action="{{ route("delete_admin_social_media", ["id" => $d->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" title="Delete">Delete</button>
+                            </form>
                         </td>
                     </tr>   
                     @endforeach

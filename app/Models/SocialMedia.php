@@ -17,8 +17,8 @@ class SocialMedia extends Model
         return SocialMedia::all();
     }
 
-    public function insert_item($name, $url, $logo)
+    public function get_social_media_by_id($id)
     {
-        return SocialMedia::all();
+        return SocialMedia::where('id', '=', $id)->firstOrFail();
     }
 }
