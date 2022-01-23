@@ -11,4 +11,14 @@ class CarModel extends Model
 
     public $table = "car_models";
     public $timestamps = true;
+
+    public function car_body()
+    {
+        return $this->belongsTo(CarBody::class);
+    }
+    
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }
