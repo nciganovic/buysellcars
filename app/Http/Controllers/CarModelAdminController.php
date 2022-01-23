@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\CarBody;
 use App\Models\CarModel;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,11 @@ class CarModelAdminController extends AdminController
 
     public function get_create_car_model()
     {
-        
+        $this->data["action"] = "Create";
+        $this->data["model"] = new CarModel();
+        $this->data["car_bodies"] = CarBody::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+        $this->data["brands"] = Brand::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+        return view("admin.forms.car-model-form", $this->data);
     }
 
     public function post_create_car_model(Request $request)
