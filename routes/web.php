@@ -33,3 +33,10 @@ Route::post('/admin/{table}/create', [SimpleTableAdminController::class, 'post_c
 Route::get('/admin/{table}/edit/{id}', [SimpleTableAdminController::class, 'get_edit_simple_table'])->name("get_edit_admin_simple_table");
 Route::post('/admin/{table}/edit/{id}', [SimpleTableAdminController::class, 'post_edit_simple_table'])->name("post_edit_admin_simple_table");
 Route::delete('/admin/{table}/delete/{id}', [SimpleTableAdminController::class, 'delete_simple_table'])->name("delete_admin_simple_table");
+
+Route::get('/admin/model', [SocialMediaAdminController::class, 'get_model'])->name("get_admin_model");
+Route::get('/admin/model/create', [SocialMediaAdminController::class, 'get_create_model'])->name("get_create_admin_model");
+Route::post('/admin/model/create', [SocialMediaAdminController::class, 'post_create_model'])->name("post_create_admin_model");
+Route::get('/admin/model/edit/{id}', [SocialMediaAdminController::class, 'get_edit_model'])->name("get_edit_admin_model");
+Route::post('/admin/model/edit/{id}', [SocialMediaAdminController::class, 'post_edit_model'])->name("post_edit_admin_model");
+Route::delete('/admin/model/delete/{id}', [SocialMediaAdminController::class, 'delete_model'])->name("delete_admin_model");
