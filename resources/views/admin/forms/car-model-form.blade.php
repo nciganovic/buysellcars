@@ -29,9 +29,13 @@
                     <div class="form-group mt-3">
                         <label for="brand_id">Brand</label>
                         <select name="brand_id" class="form-select" aria-label="Default select example">
-                            <option selected>Select brand</option>
+                            <option value="">Select brand</option>
                             @foreach ($brands as $b)
-                                <option value="{{ $b->id }}">{{ $b->name }}</option>    
+                                @if(old('brand_id') != null)
+                                    <option @if($b->id == old('brand_id')) selected @endif  value="{{ $b->id }}">{{ $b->name }}</option>     
+                                @else
+                                    <option @if($b->id == $model->brand_id) selected @endif  value="{{ $b->id }}">{{ $b->name }}</option> 
+                                @endif
                             @endforeach
                         </select>
                         @error('brand_id')
@@ -42,9 +46,13 @@
                     <div class="form-group mt-3">
                         <label for="car_body_id">Car Body</label>
                         <select name="car_body_id" class="form-select" aria-label="Default select example">
-                            <option selected>Select car body</option>
+                            <option value="">Select car body</option>
                             @foreach ($car_bodies as $c)
-                                <option value="{{ $c->id }}">{{ $c->name }}</option>    
+                                @if(old('car_body_id') != null)
+                                    <option @if($c->id == old('car_body_id')) selected @endif value="{{ $c->id }}">{{ $c->name }}</option>
+                                @else 
+                                    <option @if($c->id == $model->car_body_id)) selected @endif value="{{ $c->id }}">{{ $c->name }}</option>
+                                @endif               
                             @endforeach
                         </select>
                         @error('car_body_id')
