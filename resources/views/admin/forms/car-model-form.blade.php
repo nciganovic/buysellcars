@@ -51,7 +51,7 @@
                                 @if(old('car_body_id') != null)
                                     <option @if($c->id == old('car_body_id')) selected @endif value="{{ $c->id }}">{{ $c->name }}</option>
                                 @else 
-                                    <option @if($c->id == $model->car_body_id)) selected @endif value="{{ $c->id }}">{{ $c->name }}</option>
+                                    <option @if($c->id == $model->car_body_id) selected @endif value="{{ $c->id }}">{{ $c->name }}</option>
                                 @endif               
                             @endforeach
                         </select>
