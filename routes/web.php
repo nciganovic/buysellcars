@@ -36,7 +36,6 @@ Route::get('/admin/user/edit/{id}', [UserAdminController::class, 'get_edit_user'
 Route::post('/admin/user/edit/{id}', [UserAdminController::class, 'post_edit_user'])->name("post_edit_admin_user");
 Route::delete('/admin/user/delete/{id}', [UserAdminController::class, 'delete_user'])->name("delete_admin_user");
 
-
 Route::get('/admin/car_model', [CarModelAdminController::class, 'get_car_model'])->name("get_admin_car_model");
 Route::get('/admin/car_model/create', [CarModelAdminController::class, 'get_create_car_model'])->name("get_create_admin_car_model");
 Route::post('/admin/car_model/create', [CarModelAdminController::class, 'post_create_car_model'])->name("post_create_admin_car_model");
