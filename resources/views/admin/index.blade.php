@@ -10,6 +10,9 @@
         </div>
         <div class="col-12 mt-3">
             <div class="list-group">
+                <a href="{{ route("get_admin_car") }}" class="list-group-item list-group-item-action">
+                    Cars
+                </a>
                 <a href="{{ route("get_admin_user") }}" class="list-group-item list-group-item-action">
                     Users
                 </a>
