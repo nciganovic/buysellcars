@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\CarModel;
+use App\Models\EngineEmission;
+use App\Models\Fuel;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CarAdminController extends Controller
@@ -17,8 +21,11 @@ class CarAdminController extends Controller
     {
         $this->data["action"] = "Create";
         $this->data["model"] = new Car();
-        //$this->data["car_bodies"] = CarBody::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
-        //$this->data["brands"] = Brand::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+        $this->data["car_models"] = CarModel::where("id", ">", 0)->select(["id", "name", "brand.name"])->orderBy("name", "asc")->get();
+        $this->data["users"] = User::where("id", ">", 0)->select(["id", "email"])->orderBy("email", "asc")->get();
+        $this->data["fuels"] = Fuel::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+        $this->data["engine_emissions"] = EngineEmission::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+
         return view("admin.forms.car-form", $this->data);
     }
 
@@ -43,8 +50,14 @@ class CarAdminController extends Controller
     {
         $this->data["action"] = "Edit";
         $this->data["model"] = Car::find($id);
-        //$this->data["car_bodies"] = CarBody::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
-        //$this->data["brands"] = Brand::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+        $this->data["car_models"] = CarModel::where("id", ">", 0)->with(["brand" => function($q){
+            $q->select(['id','name']);
+        }])->select(["id", "name", "brand_id"])->orderBy("name", "asc")->get();
+
+        $this->data["users"] = User::where("id", ">", 0)->select(["id", "email"])->orderBy("email", "asc")->get();
+        $this->data["fuels"] = Fuel::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+        $this->data["engine_emissions"] = EngineEmission::where("id", ">", 0)->select(["id", "name"])->orderBy("order", "asc")->get();
+        
         return view("admin.forms.car-form", $this->data);
     }
 
