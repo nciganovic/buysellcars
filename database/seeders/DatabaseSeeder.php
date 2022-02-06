@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             SimpleTableSeeder::class,
             CarModelSeeder::class,
             UserSeeder::class,
-            CarSeeder::class
+            CarSeeder::class,
+            AdSeeder::class
         ]);
     }
 }
