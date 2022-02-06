@@ -10,7 +10,7 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="col-8">
-                <form method="POST" 
+                <form method="POST" enctype="multipart/form-data"
                     @if($action == "Create")
                         action="{{ route("post_create_admin_car") }}"
                     @else 
@@ -159,12 +159,40 @@
                         @enderror
                     </div>
 
+                    <div class="form-group mt-3">    
+                        <label for="images">Add new image</label>
+                        <input class="form-control" id="images" name="images" type="file" class="@error('images') is-invalid @enderror">
+                        @error('images')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     @if($action == "Create")
                     <button class="mt-3 btn btn-success" type="submit">Create</button>
                     @else
                     <button class="mt-3 btn btn-warning" type="submit">Update</button>
                     @endif
                 </form>
+
+                @if($action == "Edit")
+                    <div id="carouselExampleControls" class="carousel slide mt-3" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                        @foreach($images as $img)
+                            <div class="carousel-item @if ($loop->first) active @endif">
+                                <img src="{{ $img->src }}" class="d-block w-100" alt="...">
+                            </div>
+                        @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
