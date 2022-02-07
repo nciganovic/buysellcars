@@ -26,6 +26,7 @@ class CreateAdsTable extends Migration
             $table->date("date_expires");
             $table->boolean("is_special");
             $table->boolean("is_sold");
+            $table->boolean("is_active");
             $table->string("street");
             $table->foreign("car_id")->references("id")->on("cars")->onDelete("cascade");
             $table->foreign("city_id")->references("id")->on("cities")->onDelete("cascade");

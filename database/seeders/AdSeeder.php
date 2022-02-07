@@ -36,6 +36,7 @@ class AdSeeder extends Seeder
                 "date_expires" => $date_posted->addDays(30),
                 "is_special" => (rand(0, 100) > 90 ? 1 : 0),
                 "is_sold" => (rand(0, 100) > 90 ? 1 : 0),
+                "is_active" => 1,
                 "street" => $faker->streetAddress,
             ]);
         }

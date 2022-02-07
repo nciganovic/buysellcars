@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarAdminController;
 use App\Http\Controllers\CarModelAdminController;
@@ -50,6 +51,13 @@ Route::post('/admin/car_model/create', [CarModelAdminController::class, 'post_cr
 Route::get('/admin/car_model/edit/{id}', [CarModelAdminController::class, 'get_edit_car_model'])->name("get_edit_admin_car_model");
 Route::post('/admin/car_model/edit/{id}', [CarModelAdminController::class, 'post_edit_car_model'])->name("post_edit_admin_car_model");
 Route::delete('/admin/car_model/delete/{id}', [CarModelAdminController::class, 'delete_car_model'])->name("delete_admin_car_model");
+
+Route::get('/admin/ad', [AdAdminController::class, 'get_ad'])->name("get_admin_ad");
+Route::get('/admin/ad/create', [AdAdminController::class, 'get_create_ad'])->name("get_create_admin_ad");
+Route::post('/admin/ad/create', [AdAdminController::class, 'post_create_ad'])->name("post_create_admin_ad");
+Route::get('/admin/ad/edit/{id}', [AdAdminController::class, 'get_edit_ad'])->name("get_edit_admin_ad");
+Route::post('/admin/ad/edit/{id}', [AdAdminController::class, 'post_edit_ad'])->name("post_edit_admin_ad");
+Route::delete('/admin/ad/delete/{id}', [AdAdminController::class, 'delete_ad'])->name("delete_admin_ad");
 
 Route::get('/admin/{table}', [SimpleTableAdminController::class, 'get_simple_table'])->name("get_admin_simple_table");
 Route::get('/admin/{table}/create', [SimpleTableAdminController::class, 'get_create_simple_table'])->name("get_create_admin_simple_table");
