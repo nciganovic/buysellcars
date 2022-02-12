@@ -26,7 +26,7 @@ Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
 Route::get('/admin/index', [AdminController::class, 'get_index'])->name("get_admin_index");
 
 Route::get('/account/login', [AccountController::class, 'get_login'])->name("get_login");
-Route::post('/account/login', [AccountController::class, 'post_register'])->name("post_login");
+Route::post('/account/login', [AccountController::class, 'post_login'])->name("post_login");
 Route::get('/account/register', [AccountController::class, 'get_register'])->name("get_register");
 Route::post('/account/register', [AccountController::class, 'post_register'])->name("post_register");
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AccountController extends BaseController
@@ -13,9 +14,26 @@ class AccountController extends BaseController
         return view("account.login");
     }
 
-    function post_login()
+    function post_login(Request $request)
     {
-        return view("main.index");
+        $credentials = $request->only('email', 'password');
+        
+        $remember = false;
+        if($request->remember_me)
+            $remember = true;
+
+        if(Auth::attempt(['email' => $credentials["email"], 'password' => $credentials["password"]], $remember)) {
+            $user = User::where('email', '=', $credentials["email"])->first();
+
+            if($user->is_admin == 1)
+                return redirect()->route('get_admin_index');
+            else
+                return redirect()->route('get_home_index');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     function get_register()
