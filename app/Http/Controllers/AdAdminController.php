@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use App\Models\Car;
+use App\Models\City;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdAdminController extends AdminController
@@ -23,22 +26,42 @@ class AdAdminController extends AdminController
     {
         $this->data["action"] = "Create";
         $this->data["model"] = new Ad();
+        $this->data["cars"] = Car::join("car_models", "cars.car_model_id", "=", "car_models.id")
+        ->join("brands", "brands.id", "=", "car_models.brand_id")
+        ->join("users", "users.id", "=", "cars.user_id")
+        ->where("cars.id", ">", 0)
+        ->orderBy("cars.id", "asc")
+        ->get(["cars.id", "car_models.name AS car_model_name", "brands.name AS brand_name", "users.email AS email"]);
+
+        $this->data["cities"] = City::all();
+
         return view("admin.forms.ad-form", $this->data);
     }
 
     public function post_create_ad(Request $request)
     {
         $this->validate($request, [
-            "name" => "required",
-            "car_body_id" => "required",
-            "brand_id" => "required"
+            "car_id" => "required",
+            "city_id" => "required",
+            "street" => "required|max:50",
+            "price" => "required|numeric|min:1000|max:100000",
+            "sale" => "required|numeric|min:0|max:50"
         ]);
         
-        $cm = new Ad();
-        $cm->name = $request->name;
-        $cm->car_body_id = $request->car_body_id;
-        $cm->brand_id = $request->brand_id;
-        $cm->save();
+        $ad = new Ad();
+        $ad->car_id = $request->car_id;
+        $ad->city_id = $request->city_id;
+        $ad->price = $request->price;
+        $ad->sale = $request->sale;
+        $ad->street = $request->street;
+        $ad->ad_number = rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9);
+        $ad->is_fixed_price = $request->has('is_fixed_price') ? 1 : 0;;
+        $ad->is_special = $request->has('is_special') ? 1 : 0;;
+        $ad->is_sold = $request->has('is_sold') ? 1 : 0;
+        $ad->is_active = $request->has('is_active') ? 1 : 0;
+        $ad->date_posted = Carbon::now()->format('Y-m-d');
+        $ad->date_expires = Carbon::now()->addMonth(1)->format('Y-m-d');
+        $ad->save();
         
         return redirect()->route("get_admin_ad");   
     }
@@ -47,22 +70,41 @@ class AdAdminController extends AdminController
     {
         $this->data["action"] = "Edit";
         $this->data["model"] = Ad::find($id);
+        $this->data["cars"] = Car::join("car_models", "cars.car_model_id", "=", "car_models.id")
+        ->join("brands", "brands.id", "=", "car_models.brand_id")
+        ->join("users", "users.id", "=", "cars.user_id")
+        ->where("cars.id", ">", 0)
+        ->orderBy("cars.id", "asc")
+        ->get(["cars.id", "car_models.name AS car_model_name", "brands.name AS brand_name", "users.email AS email"]);
+        $this->data["cities"] = City::all();
+
         return view("admin.forms.ad-form", $this->data);
     }
 
     public function post_edit_ad(Request $request, $id)
     {
         $this->validate($request, [
-            "name" => "required",
-            "car_body_id" => "required",
-            "brand_id" => "required"
+            "car_id" => "required",
+            "city_id" => "required",
+            "street" => "required|max:50",
+            "price" => "required|numeric|min:1000|max:100000",
+            "sale" => "required|numeric|min:0|max:50"
         ]);
         
-        $cm = Ad::find($id);
-        $cm->name = $request->name;
-        $cm->car_body_id = $request->car_body_id;
-        $cm->brand_id = $request->brand_id;
-        $cm->save();
+        $ad = Ad::find($id);
+        $ad->car_id = $request->car_id;
+        $ad->city_id = $request->city_id;
+        $ad->price = $request->price;
+        $ad->sale = $request->sale;
+        $ad->street = $request->street;
+        $ad->ad_number = rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9);
+        $ad->is_fixed_price = $request->has('is_fixed_price') ? 1 : 0;;
+        $ad->is_special = $request->has('is_special') ? 1 : 0;;
+        $ad->is_sold = $request->has('is_sold') ? 1 : 0;
+        $ad->is_active = $request->has('is_active') ? 1 : 0;
+        $ad->date_posted = Carbon::now()->format('Y-m-d');
+        $ad->date_expires = Carbon::now()->addMonth(1)->format('Y-m-d');
+        $ad->save();
 
         return redirect()->route("get_admin_ad");
     }
