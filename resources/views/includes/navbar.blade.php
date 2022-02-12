@@ -29,10 +29,10 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="{{ route("get_register") }}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="{{ route("get_login") }}">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route("get_admin_index") }}">Admin</a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarAdminController;
@@ -23,6 +24,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
 Route::get('/admin/index', [AdminController::class, 'get_index'])->name("get_admin_index");
+
+Route::get('/account/login', [AccountController::class, 'get_login'])->name("get_login");
+Route::post('/account/login', [AccountController::class, 'post_register'])->name("post_login");
+Route::get('/account/register', [AccountController::class, 'get_register'])->name("get_register");
+Route::post('/account/register', [AccountController::class, 'post_register'])->name("post_register");
 
 Route::get('/admin/social-media', [SocialMediaAdminController::class, 'get_social_media'])->name("get_admin_social_media");
 Route::get('/admin/social-media/create', [SocialMediaAdminController::class, 'get_create_social_media'])->name("get_create_admin_social_media");
