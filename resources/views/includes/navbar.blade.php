@@ -28,16 +28,30 @@
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
+
+                @guest
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route("get_register") }}">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route("get_login") }}">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route("get_admin_index") }}">Admin</a>
-                </li>
+                @endguest
                 
+                @auth
+                    @if(Auth::user()->is_admin == 1)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("get_admin_index") }}">Admin</a>
+                    </li>
+                    @elseif(Auth::user()->is_admin == 0)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("get_admin_index") }}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route("logout") }}">Logout</a>
+                    </li>
+                    @endif
+                @endauth
             </ul>
       </span>
         </div>

@@ -29,6 +29,7 @@ Route::get('/account/login', [AccountController::class, 'get_login'])->name("get
 Route::post('/account/login', [AccountController::class, 'post_login'])->name("post_login");
 Route::get('/account/register', [AccountController::class, 'get_register'])->name("get_register");
 Route::post('/account/register', [AccountController::class, 'post_register'])->name("post_register");
+Route::get('/account/logout', [AccountController::class, 'logout'])->name("logout");
 
 Route::get('/admin/social-media', [SocialMediaAdminController::class, 'get_social_media'])->name("get_admin_social_media");
 Route::get('/admin/social-media/create', [SocialMediaAdminController::class, 'get_create_social_media'])->name("get_create_admin_social_media");

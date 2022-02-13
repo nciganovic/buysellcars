@@ -62,4 +62,10 @@ class AccountController extends BaseController
 
         return view("main.index");
     }
+
+    function logout()
+    {
+        Auth::logout();
+        return redirect()->route("get_home_index");;
+    }
 }
