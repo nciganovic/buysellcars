@@ -45,7 +45,7 @@
                     </li>
                     @elseif(Auth::user()->is_admin == 0)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route("get_admin_index") }}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
+                        <a class="nav-link" href="{{ route("get_user_profile", Auth::user()->id) }}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("logout") }}">Logout</a>

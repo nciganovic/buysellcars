@@ -68,4 +68,9 @@ class AccountController extends BaseController
         Auth::logout();
         return redirect()->route("get_home_index");;
     }
+
+    function get_user_profile ($id)
+    {
+        return view("account.profile");
+    }
 }
