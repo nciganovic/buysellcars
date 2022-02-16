@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             CarModelSeeder::class,
             UserSeeder::class,
             CarSeeder::class,
-            AdSeeder::class
+            AdSeeder::class,
+            ImageSeeder::class
         ]);
     }
 }

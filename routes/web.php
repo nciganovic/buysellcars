@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
+Route::get('/carmodels/{id}', [HomeController::class, 'get_carmodels_json'])->name("get_carmodels_json");
 
 Route::prefix('account')->group(function () {
     Route::get('/login', [AccountController::class, 'get_login'])->name("get_login");
