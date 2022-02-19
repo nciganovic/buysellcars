@@ -29,6 +29,8 @@ Route::get('/carmodels/{id}', [HomeController::class, 'get_carmodels_json'])->na
 
 Route::get('/ads/{id}', [AdController::class, 'get_ad_by_id'])->name("get_ad_by_id");
 Route::post('/ads/favorites/add', [AdController::class, 'set_to_favorites'])->name("set_to_favorites");
+Route::get('/ads/favorites/get', [AdController::class, 'get_favorites'])->name("get_favorites")->middleware("auth");;
+
 
 
 Route::prefix('account')->group(function () {

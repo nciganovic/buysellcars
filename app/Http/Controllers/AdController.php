@@ -85,4 +85,21 @@ class AdController extends BaseController
             return response("User not autenticated", 406);
         } 
     }
+
+    public function get_favorites()
+    {
+        $user_id = Auth::user()->id;
+        $this->data["favorites"] = Favorite::select("favorites.id", "ads.id AS ad_id" , "cars.year", "ads.price", "car_models.name AS car_model_name",
+        "brands.name AS brand_name", "users.first_name", "users.last_name", "ads.date_expires")
+        ->join("ads", "ads.id", "=", "favorites.ad_id")
+        ->join("cars", "cars.id", "=", "ads.car_id")
+        ->join("car_models", "car_models.id", "=", "cars.car_model_id")
+        ->join("brands", "car_models.brand_id", "=", "brands.id")
+        ->join("users", "users.id", "=", "cars.user_id")
+        ->where("favorites.user_id", "=", $user_id)
+        ->get();
+
+        //brand name, model name, year price, user first name last name ad id, ad expiration
+        return view("ad.favorites", $this->data);
+    }
 }
