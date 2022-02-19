@@ -23,8 +23,6 @@ class AdSeeder extends Seeder
 
         for($i = 0; $i < count(Car::all()); $i++)
         {
-            $date_posted = Carbon::createFromFormat('d/m/Y',  rand(0, 2).rand(0, 9).'/0'.rand(0,9).'/2022'); 
-
             DB::table("ads")->insert([
                 "ad_number" => rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9),
                 "car_id" => $i + 1,
@@ -32,8 +30,8 @@ class AdSeeder extends Seeder
                 "price" => rand(2000, 30000),
                 "is_fixed_price" => rand(0, 1),
                 "sale" => $sales[rand(0, 8)],
-                "date_posted" => $date_posted,
-                "date_expires" => $date_posted->addDays(30),
+                "date_posted" => Carbon::now()->format('Y-m-d'),
+                "date_expires" => Carbon::now()->addMonth()->format('Y-m-d'),
                 "is_special" => (rand(0, 100) > 90 ? 1 : 0),
                 "is_sold" => (rand(0, 100) > 90 ? 1 : 0),
                 "is_active" => 1,

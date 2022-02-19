@@ -60,7 +60,7 @@ class AccountController extends BaseController
         $user->is_admin = 0;
         $user->save();
 
-        return view("main.index");
+        return redirect()->route("get_home_index");
     }
 
     function logout()

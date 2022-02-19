@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdAdminController;
+use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarAdminController;
 use App\Http\Controllers\CarModelAdminController;
@@ -25,6 +26,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
 Route::get('/carmodels/{id}', [HomeController::class, 'get_carmodels_json'])->name("get_carmodels_json");
+
+Route::get('/ads/{id}', [AdController::class, 'get_ad_by_id'])->name("get_ad_by_id");
+Route::post('/ads/favorites/add', [AdController::class, 'set_to_favorites'])->name("set_to_favorites");
+
 
 Route::prefix('account')->group(function () {
     Route::get('/login', [AccountController::class, 'get_login'])->name("get_login");

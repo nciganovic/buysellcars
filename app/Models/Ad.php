@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +33,10 @@ class Ad extends Model
         ->join("fuels", "fuels.id", "=", "cars.fuel_id")
         ->join("cities", "cities.id", "=", "ads.city_id");
         
-        $query = $query->where("ads.is_active", "=", 1);
+        $query = $query->where("ads.is_active", "=", 1)
+        ->where("ads.date_posted", '<=', Carbon::now()->format("Y-m-d"))
+        ->where("ads.date_expires", '>=', Carbon::now()->format("Y-m-d"))
+        ->where("ads.is_sold", '=', 0);
         
         if($request->get("brand"))
             $query = $query->where("brands.id", "=", $request->get("brand"));
@@ -68,8 +72,11 @@ class Ad extends Model
         ->join("car_bodies", "car_bodies.id", "=", "car_models.car_body_id")
         ->join("fuels", "fuels.id", "=", "cars.fuel_id")
         ->join("cities", "cities.id", "=", "ads.city_id");
-        
-        $query = $query->where("ads.is_active", "=", 1);
+
+        $query = $query->where("ads.is_active", "=", 1)
+        ->where("ads.date_posted", '<=', Carbon::now()->format("Y-m-d"))
+        ->where("ads.date_expires", '>=', Carbon::now()->format("Y-m-d"))
+        ->where("ads.is_sold", '=', 0);
 
         if($request->get("brand"))
             $query = $query->where("brands.id", "=", $request->get("brand"));
