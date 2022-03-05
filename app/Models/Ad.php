@@ -21,7 +21,7 @@ class Ad extends Model
         return $this->belongsTo(City::class);
     }
 
-    public static function GetItemsForIndexCards(Request $request, $skip = 0, $take = 25)
+    public static function GetItemsForCards(Request $request, $skip = 0, $take = 25, $user_id = -1)
     {
         $query = Ad::select(["ads.id", "car_models.name AS car_model_name", "brands.name AS brand_name", 
         "cars.km", "ads.price", "cars.year", "images.src"])
@@ -31,12 +31,16 @@ class Ad extends Model
         ->join("brands", "car_models.brand_id", "=", "brands.id")
         ->join("car_bodies", "car_bodies.id", "=", "car_models.car_body_id")
         ->join("fuels", "fuels.id", "=", "cars.fuel_id")
-        ->join("cities", "cities.id", "=", "ads.city_id");
+        ->join("cities", "cities.id", "=", "ads.city_id")
+        ->join("users", "users.id", "=", "cars.user_id");
         
         $query = $query->where("ads.is_active", "=", 1)
         ->where("ads.date_posted", '<=', Carbon::now()->format("Y-m-d"))
         ->where("ads.date_expires", '>=', Carbon::now()->format("Y-m-d"))
         ->where("ads.is_sold", '=', 0);
+
+        if($user_id != -1)
+            $query = $query->where("users.id", "=", $user_id);
         
         if($request->get("brand"))
             $query = $query->where("brands.id", "=", $request->get("brand"));

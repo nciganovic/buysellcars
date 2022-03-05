@@ -18,7 +18,7 @@ class HomeController extends Controller
         $page = $request->get('page') ?? 1;
         $items_to_skip = ($page - 1) * 25; 
 
-        $this->data["ads"] = Ad::GetItemsForIndexCards($request, $items_to_skip);
+        $this->data["ads"] = Ad::GetItemsForCards($request, $items_to_skip);
         $this->data["brands"] = Brand::select("id", "name")->orderBy('order', 'asc')->get();
         $this->data["year_min"] = Car::select("year")->orderBy('year', 'asc')->first();
         $this->data["year_max"] = Car::select("year")->orderBy('year', 'desc')->first();

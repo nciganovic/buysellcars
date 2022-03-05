@@ -5,6 +5,7 @@ use App\Http\Controllers\AdAdminController;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarAdminController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarModelAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SimpleTableAdminController;
@@ -29,9 +30,13 @@ Route::get('/carmodels/{id}', [HomeController::class, 'get_carmodels_json'])->na
 
 Route::get('/ads/{id}', [AdController::class, 'get_ad_by_id'])->name("get_ad_by_id");
 Route::post('/ads/favorites/add', [AdController::class, 'set_to_favorites'])->name("set_to_favorites");
-Route::get('/ads/favorites/get', [AdController::class, 'get_favorites'])->name("get_favorites")->middleware("auth");;
+Route::get('/ads/favorites/get', [AdController::class, 'get_favorites'])->name("get_favorites")->middleware("auth");
 
-
+Route::get('/cars/get/{user_id}', [CarController::class, 'get_user_cars'])->name("get_user_cars")->middleware("auth");
+Route::get('/cars/create', [CarController::class, 'get_create_user_car'])->name("get_create_user_car")->middleware("auth");
+Route::post('/cars/create', [CarController::class, 'post_create_user_car'])->name("post_create_user_car")->middleware("auth");
+Route::post('/cars/edit/{id}', [CarController::class, 'post_create_car'])->name("post_create_car")->middleware("auth");
+Route::post('/cars/edit/{id}', [CarController::class, 'post_edit_car'])->name("post_edit_car")->middleware("auth");
 
 Route::prefix('account')->group(function () {
     Route::get('/login', [AccountController::class, 'get_login'])->name("get_login");
@@ -39,7 +44,7 @@ Route::prefix('account')->group(function () {
     Route::get('/register', [AccountController::class, 'get_register'])->name("get_register");
     Route::post('/register', [AccountController::class, 'post_register'])->name("post_register");
     Route::get('/logout', [AccountController::class, 'logout'])->name("logout");
-    Route::get('/account/profile/{id}', [AccountController::class, 'get_user_profile'])->name("get_user_profile")->middleware("auth");
+    Route::get('/profile/{id}', [AccountController::class, 'get_user_profile'])->name("get_user_profile")->middleware("auth");
 });
 
 Route::middleware([CheckIsAdmin::class])->group(function () {

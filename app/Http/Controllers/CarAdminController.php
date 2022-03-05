@@ -65,7 +65,7 @@ class CarAdminController extends Controller
         $cm->user_id = $request->user_id;
         $cm->fuel_id = $request->fuel_id;
         $cm->engine_emission_id = $request->engine_emission_id;
-        $cm->is_automatic = $request->has('is_admin') ? 1 : 0;
+        $cm->is_automatic = $request->has('is_automatic') ? 1 : 0;
         $cm->save();
 
         $this->add_new_image($request, $cm->id);
@@ -123,7 +123,7 @@ class CarAdminController extends Controller
         $cm->is_automatic = $request->has('is_admin') ? 1 : 0;
         $cm->save();
 
-        $this->add_new_image($request, $cm->id);
+        Image::add_new_image($request, $cm->id);
 
         return redirect()->route("get_admin_car");
     }
@@ -132,20 +132,6 @@ class CarAdminController extends Controller
     {   
         Car::where('id', '=', $id)->delete();     
         return redirect()->back();
-    }
-
-    private function add_new_image(Request $request, $car_id)
-    {
-        $extension = $request->images->extension();
-        $img_name = time().".".$extension;
-        $request->images->storeAs('/public', $img_name);
-        $url = Storage::url($img_name);   
-
-        $image = new Image();
-        $image->car_id = $car_id;
-        $image->src = $url;
-        $image->name = $img_name;
-        $image->save();
-    }
+    } 
 }
  
