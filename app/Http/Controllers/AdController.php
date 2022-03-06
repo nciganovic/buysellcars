@@ -102,4 +102,12 @@ class AdController extends BaseController
         //brand name, model name, year price, user first name last name ad id, ad expiration
         return view("ad.favorites", $this->data);
     }
+
+    public function delete_favorite($id)
+    {
+        Favorite::where("user_id", "=", Auth::user()->id)
+        ->where("ad_id", "=", $id)
+        ->delete();
+        return redirect()->back();
+    }
 }

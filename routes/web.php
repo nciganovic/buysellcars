@@ -31,6 +31,7 @@ Route::get('/carmodels/{id}', [HomeController::class, 'get_carmodels_json'])->na
 Route::get('/ads/{id}', [AdController::class, 'get_ad_by_id'])->name("get_ad_by_id");
 Route::post('/ads/favorites/add', [AdController::class, 'set_to_favorites'])->name("set_to_favorites");
 Route::get('/ads/favorites/get', [AdController::class, 'get_favorites'])->name("get_favorites")->middleware("auth");
+Route::delete("ads/favorites/delete/{id}", [AdController::class, 'delete_favorite'])->name("delete_favorite")->middleware("auth");
 
 Route::get('/cars/get/{user_id}', [CarController::class, 'get_user_cars'])->name("get_user_cars")->middleware("auth");
 Route::get('/cars/create', [CarController::class, 'get_create_user_car'])->name("get_create_user_car")->middleware("auth");

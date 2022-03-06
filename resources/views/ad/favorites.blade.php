@@ -5,6 +5,8 @@
 @section('content')
 <div class="container">
     <h1 class="text-center mt-3">My Favorites</h1>
+
+    @if(count($favorites) > 0)
     <table class="table table-striped mt-3">
         <thead>
             <tr>
@@ -18,7 +20,6 @@
               </tr>
         </thead>
         <tbody>
-        @if($favorites != null)
             @foreach ($favorites as $f)
               <tr>
                 <td>{{ $f->brand_name }}</td>
@@ -28,7 +29,10 @@
                 <td>{{ $f->first_name }} {{ $f->last_name }}</td>
                 <td>{{ $f->date_expires }}</td>
                 <td class="d-flex">
-                    <form action="{{ route("delete_admin_user", ["id" => $f->id]) }}" method="POST">
+                    <div class="me-3">
+                        <a class="btn btn-warning" href="{{ route("get_ad_by_id", ["id" => $f->ad_id]) }}">Visit</a>
+                    </div>
+                    <form action="{{ route("delete_favorite", ["id" => $f->ad_id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button id="remove-item-btn" onclick="return confirm('Do you really want to remove from favorites?')" class="btn btn-danger" title="Delete">Delete</button>
@@ -37,9 +41,10 @@
               </tr>
             @endforeach
         </tbody>
-        @else
-        @endif
     </table>
+    @else
+    <p class="text-center">You dont have any favorites yet.</p>
+    @endif
 </div>
 @endsection
 @section('scripts')
