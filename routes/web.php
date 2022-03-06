@@ -35,8 +35,9 @@ Route::get('/ads/favorites/get', [AdController::class, 'get_favorites'])->name("
 Route::get('/cars/get/{user_id}', [CarController::class, 'get_user_cars'])->name("get_user_cars")->middleware("auth");
 Route::get('/cars/create', [CarController::class, 'get_create_user_car'])->name("get_create_user_car")->middleware("auth");
 Route::post('/cars/create', [CarController::class, 'post_create_user_car'])->name("post_create_user_car")->middleware("auth");
-Route::post('/cars/edit/{id}', [CarController::class, 'post_create_car'])->name("post_create_car")->middleware("auth");
-Route::post('/cars/edit/{id}', [CarController::class, 'post_edit_car'])->name("post_edit_car")->middleware("auth");
+Route::get('/cars/edit/{id}', [CarController::class, 'get_edit_car'])->name("get_edit_car")->middleware("auth");
+Route::post('/cars/edit/{id}', [CarController::class, 'post_edit_user_car'])->name("post_edit_user_car")->middleware("auth");
+Route::delete('/cars/remove/{id}', [CarController::class, 'delete_car'])->name('delete_car')->middleware('auth');
 
 Route::prefix('account')->group(function () {
     Route::get('/login', [AccountController::class, 'get_login'])->name("get_login");

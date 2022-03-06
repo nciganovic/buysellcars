@@ -13,15 +13,18 @@ class Image extends Model
 
     public static function add_new_image(Request $request, $car_id)
     {
-        $extension = $request->images->extension();
-        $img_name = time().".".$extension;
-        $request->images->storeAs('/public', $img_name);
-        $url = Storage::url($img_name);   
+        if($request->images)
+        {
+            $extension = $request->images->extension();
+            $img_name = time().".".$extension;
+            $request->images->storeAs('/public', $img_name);
+            $url = Storage::url($img_name);   
 
-        $image = new Image();
-        $image->car_id = $car_id;
-        $image->src = $url;
-        $image->name = $img_name;
-        $image->save();
+            $image = new Image();
+            $image->car_id = $car_id;
+            $image->src = $url;
+            $image->name = $img_name;
+            $image->save();
+        }
     }
 }

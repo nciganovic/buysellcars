@@ -7,6 +7,7 @@
     <div class="row d-flex justify-content-between">   
         <h1 class="text-center">My Cars</h1>
         
+        @if(count($cars) > 0)
         <div class="col-12">
             <table class="table table-hover">
                 <thead>
@@ -27,9 +28,9 @@
                         <td>{{ $row->color }}</td>
                         <td class="d-flex">
                             <div class="me-3">
-                                <a class="btn btn-warning" href="{{ route("get_edit_admin_car_model", ["id" => $row->id]) }}">Update</a>
+                                <a class="btn btn-warning" href="{{ route("get_edit_car", ["id" => $row->id]) }}">Update</a>
                             </div>
-                            <form action="{{ route("delete_admin_car_model", ["id" => $row->id]) }}" method="POST">
+                            <form action="{{ route("delete_car", ["id" => $row->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button id="remove-item-btn" onclick="return confirm('Do you really want to delete?')" class="btn btn-danger" title="Delete">Delete</button>
@@ -40,8 +41,7 @@
                 </tbody>
               </table>
         </div>
-
-        @if(count($cars) == 0)
+        @else
             <p class="text-center">You don't have any cars yet, click <a href="{{ route("get_create_user_car") }}">here</a> to add first one.</p>
         @endif
     </div>
