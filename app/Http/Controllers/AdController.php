@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use App\Models\Car;
 use App\Models\Favorite;
 use App\Models\Image;
 use Carbon\Carbon;
@@ -109,5 +110,13 @@ class AdController extends BaseController
         ->where("ad_id", "=", $id)
         ->delete();
         return redirect()->back();
+    }
+
+    
+    public function get_user_ads()
+    {
+        $this->data["cars"] = Car::where("cars.user_id", "=", Auth::user()->id)->get();
+
+        return view("ad.user-ads", $this->data);
     }
 }

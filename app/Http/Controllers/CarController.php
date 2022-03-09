@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CarController extends BaseController
 {
-    public function get_user_cars(Request $request, $user_id)
+    public function get_user_cars()
     {
         //Id, year, brand name, model name, km, color 
         $this->data["cars"] = Car::select("cars.id", "cars.year", "car_models.name AS car_model_name", "brands.name AS brand_name", "cars.color", "cars.km")
         ->join("car_models", "car_models.id", "=", "cars.car_model_id")
         ->join("brands", "car_models.brand_id", "=", "brands.id")
-        ->where("cars.user_id", "=", $user_id)
+        ->where("cars.user_id", "=", Auth::user()->id)
         ->get();
         return view("cars.user-cars", $this->data);
     }
@@ -73,7 +73,7 @@ class CarController extends BaseController
 
         Image::add_new_image($request, $cm->id);
         
-        return redirect()->route("get_user_cars", Auth::user()->id);   
+        return redirect()->route("get_user_cars");   
     }
 
     public function get_edit_car($id)
@@ -125,7 +125,7 @@ class CarController extends BaseController
 
         Image::add_new_image($request, $cm->id);
         
-        return redirect()->route("get_user_cars", Auth::user()->id);
+        return redirect()->route("get_user_cars");
     }
 
     public function delete_car($id)
