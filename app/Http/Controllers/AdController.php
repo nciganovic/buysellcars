@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\Car;
+use App\Models\City;
 use App\Models\Favorite;
 use App\Models\Image;
 use Carbon\Carbon;
@@ -116,7 +117,105 @@ class AdController extends BaseController
     public function get_user_ads()
     {
         $this->data["cars"] = Car::where("cars.user_id", "=", Auth::user()->id)->get();
-
+        $this->data["ads"] = Ad::GetItemsForCards(null, 0, PHP_INT_MAX, Auth::user()->id);
         return view("ad.user-ads", $this->data);
+    }
+
+    public function get_create_user_ad()
+    {
+        $this->data["cars"] = Car::where("cars.user_id", "=", Auth::user()->id)->get();
+        $this->data["action"] = "Create";
+        $this->data["model"] = new Ad();
+        $this->data["cars"] = Car::join("car_models", "cars.car_model_id", "=", "car_models.id")
+        ->join("brands", "brands.id", "=", "car_models.brand_id")
+        ->where("cars.id", ">", 0)
+        ->where("cars.user_id", "=", Auth::user()->id)
+        ->orderBy("cars.id", "asc")
+        ->get(["cars.id", "car_models.name AS car_model_name", "brands.name AS brand_name"]);
+
+        $this->data["cities"] = City::all();
+
+        return view("ad.user-ad-form", $this->data);
+    }
+
+    public function post_create_user_ad(Request $request)
+    {
+        $this->validate($request, [
+            "car_id" => "required",
+            "city_id" => "required",
+            "street" => "required|max:50",
+            "price" => "required|numeric|min:1000|max:100000",
+            "sale" => "required|numeric|min:0|max:50"
+        ]);
+        
+        $ad = new Ad();
+        $ad->car_id = $request->car_id;
+        $ad->city_id = $request->city_id;
+        $ad->price = $request->price;
+        $ad->sale = $request->sale;
+        $ad->street = $request->street;
+        $ad->ad_number = rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9);
+        $ad->is_fixed_price = $request->has('is_fixed_price') ? 1 : 0;;
+        $ad->is_special = $request->has('is_special') ? 1 : 0;;
+        $ad->is_sold = $request->has('is_sold') ? 1 : 0;
+        $ad->is_active = $request->has('is_active') ? 1 : 0;
+        $ad->date_posted = Carbon::now()->format('Y-m-d');
+        $ad->date_expires = Carbon::now()->addMonth(1)->format('Y-m-d');
+        $ad->save();
+
+        return redirect()->route("get_user_ads");
+    }
+
+    public function get_edit_user_ad($id)
+    {
+        $this->data["action"] = "Edit";
+        $this->data["model"] = Ad::find($id);
+        $this->data["cars"] = Car::join("car_models", "cars.car_model_id", "=", "car_models.id")
+        ->join("brands", "brands.id", "=", "car_models.brand_id")
+        ->where("cars.id", ">", 0)
+        ->where("cars.user_id", "=", Auth::user()->id)
+        ->orderBy("cars.id", "asc")
+        ->get(["cars.id", "car_models.name AS car_model_name", "brands.name AS brand_name"]);
+        $this->data["cities"] = City::all();
+
+        return view("ad.user-ad-form", $this->data);
+    }
+
+    public function post_edit_user_ad(Request $request, $id)
+    {
+        $this->validate($request, [
+            "car_id" => "required",
+            "city_id" => "required",
+            "street" => "required|max:50",
+            "price" => "required|numeric|min:1000|max:100000",
+            "sale" => "required|numeric|min:0|max:50"
+        ]);
+        
+        $ad = Ad::find($id);
+        $ad->car_id = $request->car_id;
+        $ad->city_id = $request->city_id;
+        $ad->price = $request->price;
+        $ad->sale = $request->sale;
+        $ad->street = $request->street;
+        $ad->ad_number = rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9).rand(0, 9);
+        $ad->is_fixed_price = $request->has('is_fixed_price') ? 1 : 0;;
+        $ad->is_special = $request->has('is_special') ? 1 : 0;;
+        $ad->is_sold = $request->has('is_sold') ? 1 : 0;
+        $ad->is_active = $request->has('is_active') ? 1 : 0;
+        $ad->date_posted = Carbon::now()->format('Y-m-d');
+        $ad->date_expires = Carbon::now()->addMonth(1)->format('Y-m-d');
+        $ad->save();
+
+        return redirect()->route("get_user_ads");
+    }
+
+    public function delete_user_ad($id)
+    {
+        Ad::join("cars", "cars.id", "=", "ads.car_id")
+        ->where('ads.id', '=', $id)
+        ->where("cars.user_id", "=", Auth::user()->id)
+        ->delete();
+
+        return redirect()->route("get_user_ads");
     }
 }

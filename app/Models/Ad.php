@@ -21,7 +21,7 @@ class Ad extends Model
         return $this->belongsTo(City::class);
     }
 
-    public static function GetItemsForCards(Request $request, $skip = 0, $take = 25, $user_id = -1)
+    public static function GetItemsForCards(Request $request = null, $skip = 0, $take = 25, $user_id = -1)
     {
         $query = Ad::select(["ads.id", "car_models.name AS car_model_name", "brands.name AS brand_name", 
         "cars.km", "ads.price", "cars.year", "images.src"])
@@ -41,23 +41,26 @@ class Ad extends Model
 
         if($user_id != -1)
             $query = $query->where("users.id", "=", $user_id);
-        
-        if($request->get("brand"))
-            $query = $query->where("brands.id", "=", $request->get("brand"));
-        if($request->get("model"))
-            $query = $query->where("car_models.id", "=", $request->get("model"));
-        if($request->get("price"))
-            $query = $query->where("ads.price", "<=", $request->get("price"));
-        if($request->get("yearfrom"))
-            $query = $query->where("cars.year", ">=", $request->get("yearfrom"));
-        if($request->get("until"))
-            $query = $query->where("cars.year", "<=", $request->get("until"));
-        if($request->get("carbody"))
-            $query = $query->where("car_bodies.id", "=", $request->get("carbody"));
-        if($request->get("fuel"))
-            $query = $query->where("fuels.id", "=", $request->get("fuel"));
-        if($request->get("city"))
-            $query = $query->where("cities.id", "=", $request->get("city"));
+
+        if($request)
+        {
+            if($request->get("brand"))
+                $query = $query->where("brands.id", "=", $request->get("brand"));
+            if($request->get("model"))
+                $query = $query->where("car_models.id", "=", $request->get("model"));
+            if($request->get("price"))
+                $query = $query->where("ads.price", "<=", $request->get("price"));
+            if($request->get("yearfrom"))
+                $query = $query->where("cars.year", ">=", $request->get("yearfrom"));
+            if($request->get("until"))
+                $query = $query->where("cars.year", "<=", $request->get("until"));
+            if($request->get("carbody"))
+                $query = $query->where("car_bodies.id", "=", $request->get("carbody"));
+            if($request->get("fuel"))
+                $query = $query->where("fuels.id", "=", $request->get("fuel"));
+            if($request->get("city"))
+                $query = $query->where("cities.id", "=", $request->get("city"));
+        }
 
         $query = $query->orderBy("ads.id", "asc")
         ->skip($skip)
