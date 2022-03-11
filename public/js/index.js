@@ -1,4 +1,6 @@
 $( document ).ready(function() {
+    
+    let filterElements = ["brand", "model", "price", "yearfrom", "until", "carbody", "fuel", "city"]
 
     let queryString = window.location.search;
 
@@ -12,8 +14,21 @@ $( document ).ready(function() {
 
     $(".page-link").each((idx, element) =>
     {
+        if(queryString.includes("page") && !containsAnySubString(queryString, filterElements))
+            return;
         element.href = element.href + queryString; 
     });
+
+    function containsAnySubString(string, subStringArray)
+    {
+        for(let s of subStringArray)
+        {
+            if(string.indexOf(s) !== -1)
+                return true;
+        }
+
+        return false;
+    }
 
     $("#brand-select").on("change", ()=>
     {
