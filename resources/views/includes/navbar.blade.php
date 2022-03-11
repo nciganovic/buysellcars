@@ -5,36 +5,22 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Link 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Link 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Link 3</a>
-                </li>
-            </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @auth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
+                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                     </a>
                     @auth
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <li><a class="dropdown-item" href="{{ route("get_favorites") }}">Favorites</a></li>
                       <li><a class="dropdown-item" href="{{ route("get_user_cars") }}">My Cars</a></li>
                       <li><a class="dropdown-item" href="{{ route("get_user_ads") }}">My Ads</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                     @else
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route("get_admin_social_media") }}">Social Media</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                     @endif
                 </li>
@@ -54,14 +40,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("get_admin_index") }}">Admin</a>
                     </li>
-                    @elseif(Auth::user()->is_admin == 0)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("get_user_profile", Auth::user()->id) }}">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
-                    </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("logout") }}">Logout</a>
                     </li>
-                    @endif
                 @endauth
             </ul>
       </span>
