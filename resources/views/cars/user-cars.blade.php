@@ -40,6 +40,7 @@
                     @endforeach
                 </tbody>
               </table>
+              <div><a class="btn btn-success" href="{{ route("get_create_user_car") }}">Add New Car</a></div>
         </div>
         @else
             <p class="text-center">You don't have any cars yet, click <a href="{{ route("get_create_user_car") }}">here</a> to add first one.</p>

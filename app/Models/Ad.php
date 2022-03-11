@@ -24,7 +24,7 @@ class Ad extends Model
     public static function GetItemsForCards(Request $request = null, $skip = 0, $take = 25, $user_id = -1)
     {
         $query = Ad::select(["ads.id", "car_models.name AS car_model_name", "brands.name AS brand_name", 
-        "cars.km", "ads.price", "cars.year", "images.src"])
+        "cars.km", "ads.price", "cars.year", "images.src", "ads.sale"])
         ->join("cars", "ads.car_id", "=", "cars.id")
         ->join("images", "images.car_id", "=", "cars.id")
         ->join("car_models", "car_models.id", "=", "cars.car_model_id")

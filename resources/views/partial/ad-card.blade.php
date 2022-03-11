@@ -4,9 +4,19 @@
         <div class="card-body">
             <h5 class="card-title">{{ $ad->id }} {{ $ad->brand_name }} {{ $ad->car_model_name }}</h5>
             <div class="d-flex justify-content-between">
-                <span>{{$ad->price}} &euro;</span>
+                @if($ad->sale > 0)
+                <span class="text-gray line-on-text">{{ number_format($ad->price, 0) }}&euro;</span>
+                <span>{{ number_format((1 - $ad->sale / 100) * $ad->price, 0) }}&euro;</span>
+                @else
+                <span>{{ number_format($ad->price, 0) }}$</span>
+                @endif
                 <span>{{$ad->year}}. year</span>
             </div>
+            @if($ad->sale > 0)
+                <div class="d-flex justify-content-start">
+                    <span class="sale-card">{{ $ad->sale }}&percnt;</span>
+                </div>
+            @endif
         </div>
     </a>  
 @if(isset($edit_link))
