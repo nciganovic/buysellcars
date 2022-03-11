@@ -12,6 +12,7 @@ use App\Http\Controllers\SimpleTableAdminController;
 use App\Http\Controllers\SocialMediaAdminController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Middleware\CheckIsAdmin;
+use App\Http\Middleware\Tracker;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,35 +26,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
-Route::get('/carmodels/{id}', [HomeController::class, 'get_carmodels_json'])->name("get_carmodels_json");
+Route::middleware([Tracker::class])->group(function () {
+    Route::get('/', [HomeController::class, 'get_index'])->name("get_home_index");
+    Route::get('/carmodels/{id}', [HomeController::class, 'get_carmodels_json'])->name("get_carmodels_json");
 
-Route::get('/ads/{id}', [AdController::class, 'get_ad_by_id'])->name("get_ad_by_id");
-Route::post('/ads/favorites/add', [AdController::class, 'set_to_favorites'])->name("set_to_favorites");
-Route::get('/ads/favorites/get', [AdController::class, 'get_favorites'])->name("get_favorites")->middleware("auth");
-Route::delete("ads/favorites/delete/{id}", [AdController::class, 'delete_favorite'])->name("delete_favorite")->middleware("auth");
-Route::get("ads/user/get/", [AdController::class, 'get_user_ads'])->name("get_user_ads")->middleware("auth");
-Route::get("ads/user/create", [AdController::class, 'get_create_user_ad'])->name("get_create_user_ad")->middleware("auth");
-Route::post("ads/user/create", [AdController::class, 'post_create_user_ad'])->name("post_create_user_ad")->middleware("auth");
-Route::get("ads/user/edit/{id}", [AdController::class, 'get_edit_user_ad'])->name("get_edit_user_ad")->middleware("auth");
-Route::post("ads/user/edit/{id}", [AdController::class, 'post_edit_user_ad'])->name("post_edit_user_ad")->middleware("auth");
-Route::delete("ads/user/delete/{id}", [AdController::class, 'delete_user_ad'])->name("delete_user_ad")->middleware("auth");
+    Route::get('/ads/{id}', [AdController::class, 'get_ad_by_id'])->name("get_ad_by_id");
+    Route::post('/ads/favorites/add', [AdController::class, 'set_to_favorites'])->name("set_to_favorites");
+    Route::get('/ads/favorites/get', [AdController::class, 'get_favorites'])->name("get_favorites")->middleware("auth");
+    Route::delete("ads/favorites/delete/{id}", [AdController::class, 'delete_favorite'])->name("delete_favorite")->middleware("auth");
+    Route::get("ads/user/get/", [AdController::class, 'get_user_ads'])->name("get_user_ads")->middleware("auth");
+    Route::get("ads/user/create", [AdController::class, 'get_create_user_ad'])->name("get_create_user_ad")->middleware("auth");
+    Route::post("ads/user/create", [AdController::class, 'post_create_user_ad'])->name("post_create_user_ad")->middleware("auth");
+    Route::get("ads/user/edit/{id}", [AdController::class, 'get_edit_user_ad'])->name("get_edit_user_ad")->middleware("auth");
+    Route::post("ads/user/edit/{id}", [AdController::class, 'post_edit_user_ad'])->name("post_edit_user_ad")->middleware("auth");
+    Route::delete("ads/user/delete/{id}", [AdController::class, 'delete_user_ad'])->name("delete_user_ad")->middleware("auth");
 
 
-Route::get('/cars/get', [CarController::class, 'get_user_cars'])->name("get_user_cars")->middleware("auth");
-Route::get('/cars/create', [CarController::class, 'get_create_user_car'])->name("get_create_user_car")->middleware("auth");
-Route::post('/cars/create', [CarController::class, 'post_create_user_car'])->name("post_create_user_car")->middleware("auth");
-Route::get('/cars/edit/{id}', [CarController::class, 'get_edit_car'])->name("get_edit_car")->middleware("auth");
-Route::post('/cars/edit/{id}', [CarController::class, 'post_edit_user_car'])->name("post_edit_user_car")->middleware("auth");
-Route::delete('/cars/remove/{id}', [CarController::class, 'delete_car'])->name('delete_car')->middleware('auth');
+    Route::get('/cars/get', [CarController::class, 'get_user_cars'])->name("get_user_cars")->middleware("auth");
+    Route::get('/cars/create', [CarController::class, 'get_create_user_car'])->name("get_create_user_car")->middleware("auth");
+    Route::post('/cars/create', [CarController::class, 'post_create_user_car'])->name("post_create_user_car")->middleware("auth");
+    Route::get('/cars/edit/{id}', [CarController::class, 'get_edit_car'])->name("get_edit_car")->middleware("auth");
+    Route::post('/cars/edit/{id}', [CarController::class, 'post_edit_user_car'])->name("post_edit_user_car")->middleware("auth");
+    Route::delete('/cars/remove/{id}', [CarController::class, 'delete_car'])->name('delete_car')->middleware('auth');
 
-Route::prefix('account')->group(function () {
-    Route::get('/login', [AccountController::class, 'get_login'])->name("get_login");
-    Route::post('/login', [AccountController::class, 'post_login'])->name("post_login");
-    Route::get('/register', [AccountController::class, 'get_register'])->name("get_register");
-    Route::post('/register', [AccountController::class, 'post_register'])->name("post_register");
-    Route::get('/logout', [AccountController::class, 'logout'])->name("logout");
-    Route::get('/profile/{id}', [AccountController::class, 'get_user_profile'])->name("get_user_profile")->middleware("auth");
+    Route::prefix('account')->group(function () {
+        Route::get('/login', [AccountController::class, 'get_login'])->name("get_login");
+        Route::post('/login', [AccountController::class, 'post_login'])->name("post_login");
+        Route::get('/register', [AccountController::class, 'get_register'])->name("get_register");
+        Route::post('/register', [AccountController::class, 'post_register'])->name("post_register");
+        Route::get('/logout', [AccountController::class, 'logout'])->name("logout");
+        Route::get('/profile/{id}', [AccountController::class, 'get_user_profile'])->name("get_user_profile")->middleware("auth");
+    });
 });
 
 Route::middleware([CheckIsAdmin::class])->group(function () {

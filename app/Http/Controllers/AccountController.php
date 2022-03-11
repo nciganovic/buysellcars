@@ -60,6 +60,8 @@ class AccountController extends BaseController
         $user->is_admin = 0;
         $user->save();
 
+        Auth::loginUsingId($user->id);
+
         return redirect()->route("get_home_index");
     }
 
