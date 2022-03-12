@@ -2,7 +2,7 @@
     <a href="{{ route("get_ad_by_id", $ad->id) }}" class="card mt-3  text-decoration-none text-dark" >
         <img class="card-img-top" src="{{ $ad->src }}" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">{{ $ad->id }} {{ $ad->brand_name }} {{ $ad->car_model_name }}</h5>
+            <h5 class="card-title">{{ $ad->brand_name }} {{ $ad->car_model_name }}</h5>
             <div class="d-flex justify-content-between">
                 @if($ad->sale > 0)
                 <span class="text-gray line-on-text">{{ number_format($ad->price, 0) }}&euro;</span>
