@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CarController extends BaseController
+class CarController extends MyBaseController
 {
     public function get_user_cars()
     {

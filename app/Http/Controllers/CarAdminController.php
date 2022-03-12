@@ -11,7 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class CarAdminController extends Controller
+class CarAdminController extends AdminController
 {
     public function get_car()
     {

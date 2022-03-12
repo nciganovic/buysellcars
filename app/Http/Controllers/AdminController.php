@@ -8,7 +8,7 @@ use App\Models\Track;
 use Illuminate\Http\Request;
 use Socket;
 
-class AdminController extends Controller
+class AdminController extends MyBaseController
 {
     public function get_index()
     {

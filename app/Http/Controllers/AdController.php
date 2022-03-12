@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdController extends BaseController
+class AdController extends MyBaseController
 {
     public function get_ad_by_id($id)
     {

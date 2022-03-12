@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class ContactController extends Controller
+class ContactController extends MyBaseController
 {
     public function get_contact()
     {
-        return view("main.contact");
+        return view("main.contact", $this->data);
     }
 
     public function post_contact(Request $request)

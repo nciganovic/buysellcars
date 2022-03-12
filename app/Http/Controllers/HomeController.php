@@ -11,7 +11,7 @@ use App\Models\City;
 use App\Models\Fuel;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HomeController extends MyBaseController
 {
     public function get_index(Request $request)
     {

@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AccountController extends BaseController
+class AccountController extends MyBaseController
 {
     function get_login()
     {
-        return view("account.login");
+        return view("account.login", $this->data);
     }
 
     function post_login(Request $request)
@@ -38,7 +38,7 @@ class AccountController extends BaseController
 
     function get_register()
     {
-        return view("account.register");
+        return view("account.register", $this->data);
     }
 
     function post_register(Request $request)
@@ -69,10 +69,5 @@ class AccountController extends BaseController
     {
         Auth::logout();
         return redirect()->route("get_home_index");;
-    }
-
-    function get_user_profile ($id)
-    {
-        return view("account.profile");
     }
 }
