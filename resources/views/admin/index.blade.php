@@ -34,12 +34,35 @@
         </div>
         <div class="col-12 mt-3">
             <h2 class="text-center">Track</h2>
-            <!-- AJAX TABLE !!! --> 
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Url</th>
+                    <th scope="col">Date</th>
+                  </tr>
+                </thead>
+                <tbody id="t-body" data-page="1">
+                    @foreach ($trackers as $t)
+                    <tr>
+                        <td>@if($t->email == null) Anonymous @else {{ $t->email }} @endif</td>
+                        <td>{{ $t->url }}</td>
+                        <td>{{ $t->datetime }}</td>
+                    </tr>   
+                    @endforeach
+                </tbody>
+              </table>
+              @if($next)
+              <div class="d-flex justify-content-center">
+                  <button class="btn btn-success me-1 track-move-left" disabled="disabled"><</button>
+                  <button class="btn btn-success ms-1 track-move-right">></button>
+              </div>
+              @endif
         </div>
     </div>
 </div>    
     
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/index.js') }}"></script>
+    <script src="{{ asset('js/admin/index-admin.js') }}"></script>
 @endsection

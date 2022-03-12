@@ -103,6 +103,8 @@ Route::middleware([CheckIsAdmin::class])->group(function () {
     Route::get('/admin/{table}/edit/{id}', [SimpleTableAdminController::class, 'get_edit_simple_table'])->name("get_edit_admin_simple_table");
     Route::post('/admin/{table}/edit/{id}', [SimpleTableAdminController::class, 'post_edit_simple_table'])->name("post_edit_admin_simple_table");
     Route::delete('/admin/{table}/delete/{id}', [SimpleTableAdminController::class, 'delete_simple_table'])->name("delete_admin_simple_table");
+
+    Route::get('/admin/track/get', [AdminController::class, 'get_track'])->name("get_track");
 });
 
 
