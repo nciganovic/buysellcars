@@ -18,8 +18,8 @@ class SocailMediaSeeder extends Seeder
         $social_media_data = 
         [
             "names" => ["Facebook", "Instagram", "Tweeter"],
-            "urls" => ["facebook.com", "instagram.com", "twitter.com"],
-            "logos" => ["fas fa facebook", "fas fa instagram", "fas fa twitter"]
+            "urls" => ["https://www.facebook.com", "https://www.instagram.com", "https://www.twitter.com"],
+            "logos" => ["fa fa-facebook-official", "fa fa-instagram", "fa fa-twitter-square"]
         ];
 
 

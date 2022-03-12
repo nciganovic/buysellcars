@@ -55,7 +55,6 @@ Route::middleware([Tracker::class])->group(function () {
         Route::get('/register', [AccountController::class, 'get_register'])->name("get_register");
         Route::post('/register', [AccountController::class, 'post_register'])->name("post_register");
         Route::get('/logout', [AccountController::class, 'logout'])->name("logout");
-        Route::get('/profile/{id}', [AccountController::class, 'get_user_profile'])->name("get_user_profile")->middleware("auth");
     });
 
     Route::get('/contact/get', [ContactController::class, 'get_contact'])->name("get_contact");

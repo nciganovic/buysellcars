@@ -3,16 +3,11 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
 
+                @foreach ($soc_med as $s)
                 <div class="m-3">
-                    <a class="text-dark" target="blank" href="#"> <i class="fab fa-facebook-square"></i> </a>
+                    <a class="text-dark font-l" target="blank" href="{{ $s->url }}"> <i class="{{ $s->logo }}"></i> </a>
                 </div>
-                <div class="m-3">
-                    <a class="text-dark" target="blank" href="#"> <i class="fab fa-instagram"></i> </a>
-                </div>
-                <div class="m-3">
-                    <a class="text-dark" target="blank" href="#"> <i class="fab fa-twitter-square"></i> </a>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </div>

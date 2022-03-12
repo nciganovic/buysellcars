@@ -45,3 +45,8 @@
     font-weight: bold;
     padding: 3px;
 }
+
+.bg-spec
+{
+    background-color: orange;
+}
