@@ -15,14 +15,25 @@ class CarModelSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 15; $i++)
+        $brandModels = [
+            ["A 180", "A200", "B 180", "C 280", "CLA 200"], 
+            ["218", "330", "520", "640", "760"],
+            ["A1", "A2", "A3", "A4", "A6"],
+            ["Auris", "C-HR", "Paseo", "Prius", "Supra"],
+            ["CR-V", "HR-V", "Civic", "Accord", "Jazz"]
+        ];
+
+        for($i = 0; $i < count($brandModels); $i++)
         {
-            DB::table("car_models")->insert([
-                "name" => "Model-".$i,
-                "car_body_id" => rand(1, 4),
-                "brand_id" => rand(1, 5),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
+            for($y = 0; $y < count($brandModels[$i]); $y++)
+            {
+                DB::table("car_models")->insert([
+                    "name" => $brandModels[$i][$y],
+                    "car_body_id" => rand(1, 4),
+                    "brand_id" => $i + 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
+            }
         }
     }
 }

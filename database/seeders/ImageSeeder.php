@@ -18,10 +18,11 @@ class ImageSeeder extends Seeder
     {
         for($i = 0; $i < count(Car::all()); $i++)
         {
-            DB::table("images")->insert([
-                "car_id" => $i + 1,
-                "src" => "/storage/1644788202.jpg",
-                "name" => "1644788202.jpg"
+            $id = $i + 1;
+            DB::table("images")->insert([ 
+                "car_id" => $id,
+                "src" => "/storage/".$id.".jpg",
+                "name" => $id
             ]);
         }
     }
