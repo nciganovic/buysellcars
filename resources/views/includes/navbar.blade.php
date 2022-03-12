@@ -34,7 +34,6 @@
                     <a class="nav-link" href="{{ route("get_login") }}">Login</a>
                 </li>
                 @endguest
-                
                 @auth
                     @if(Auth::user()->is_admin == 1)
                     <li class="nav-item">
@@ -45,6 +44,9 @@
                         <a class="nav-link" href="{{ route("logout") }}">Logout</a>
                     </li>
                 @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route("get_contact") }}">Contact</a>
+                </li>
             </ul>
       </span>
         </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarAdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarModelAdminController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SimpleTableAdminController;
 use App\Http\Controllers\SocialMediaAdminController;
@@ -41,7 +42,6 @@ Route::middleware([Tracker::class])->group(function () {
     Route::post("ads/user/edit/{id}", [AdController::class, 'post_edit_user_ad'])->name("post_edit_user_ad")->middleware("auth");
     Route::delete("ads/user/delete/{id}", [AdController::class, 'delete_user_ad'])->name("delete_user_ad")->middleware("auth");
 
-
     Route::get('/cars/get', [CarController::class, 'get_user_cars'])->name("get_user_cars")->middleware("auth");
     Route::get('/cars/create', [CarController::class, 'get_create_user_car'])->name("get_create_user_car")->middleware("auth");
     Route::post('/cars/create', [CarController::class, 'post_create_user_car'])->name("post_create_user_car")->middleware("auth");
@@ -57,6 +57,9 @@ Route::middleware([Tracker::class])->group(function () {
         Route::get('/logout', [AccountController::class, 'logout'])->name("logout");
         Route::get('/profile/{id}', [AccountController::class, 'get_user_profile'])->name("get_user_profile")->middleware("auth");
     });
+
+    Route::get('/contact/get', [ContactController::class, 'get_contact'])->name("get_contact");
+    Route::post('/contact/post', [ContactController::class, 'post_contact'])->name("post_contact");
 });
 
 Route::middleware([CheckIsAdmin::class])->group(function () {
