@@ -64,7 +64,7 @@ class Ad extends Model
                 $query = $query->where("cities.id", "=", $request->get("city"));
         }
 
-        $query = $query->orderBy("ads.id", "asc")
+        $query = $query->orderBy("ads.date_expires", "desc")
         ->skip($skip)
         ->take($take)
         ->get();

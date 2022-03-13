@@ -99,6 +99,7 @@ class AdController extends MyBaseController
         ->join("brands", "car_models.brand_id", "=", "brands.id")
         ->join("users", "users.id", "=", "cars.user_id")
         ->where("favorites.user_id", "=", $user_id)
+        ->where("ads.is_active", "=", 1)
         ->get();
 
         //brand name, model name, year price, user first name last name ad id, ad expiration
