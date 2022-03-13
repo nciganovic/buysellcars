@@ -9,9 +9,8 @@ class SocialMediaAdminController extends AdminController
 {
     public function get_social_media()
     {
-        $model = new SocialMedia();
-        $data = SocialMedia::all();
-        return view("admin.data-table.social-media", ["data" => $data]);
+        $this->data["model"] = new SocialMedia();
+        return view("admin.data-table.social-media", $this->data);
     }
 
     public function get_create_social_media()

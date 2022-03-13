@@ -1,6 +1,6 @@
 @extends('layouts.layout-main')
 @section('title')
-   Create Car - Admin Page
+{{ $action }} Car
 @endsection
 @section('content')
 <div class="container">
