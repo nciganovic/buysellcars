@@ -12,9 +12,11 @@
         @if(count($ads) == 0)
         <p class="text-center">You don't have any ads yet, click <a href="{{ route("get_create_user_ad") }}">here</a> to create first one.</p>
         @else 
+            <div class="d-flex justify-content-between">
             @foreach ($ads as $ad)
                 @include('partial.ad-card', ["edit_link" => true])
             @endforeach
+            </div>
         @endif
     @endif
 </div>
