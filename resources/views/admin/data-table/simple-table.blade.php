@@ -8,6 +8,9 @@
         <div class="col-12 mt-3">
             <h1 class="text-center">{{ ucwords(str_replace("_", " ", $table)) }}</h1>
         </div>
+        <div>
+            <a class="btn btn-success" href="{{ route("get_create_admin_simple_table", ["table" => $table]) }}">Create</a>
+        </div>
         <div class="col-12">
             <table class="table table-hover">
                 <thead>
@@ -37,9 +40,6 @@
                   
                 </tbody>
               </table>
-            <div>
-                <a class="btn btn-success" href="{{ route("get_create_admin_simple_table", ["table" => $table]) }}">Create</a>
-            </div>
         </div>
     </div>
 </div>    
