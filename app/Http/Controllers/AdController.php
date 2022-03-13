@@ -118,7 +118,7 @@ class AdController extends MyBaseController
     public function get_user_ads()
     {
         $this->data["cars"] = Car::where("cars.user_id", "=", Auth::user()->id)->get();
-        $this->data["ads"] = Ad::GetItemsForCards(null, 0, PHP_INT_MAX, Auth::user()->id, false);
+        $this->data["ads"] = Ad::GetItemsForCards(null, 0, PHP_INT_MAX, Auth::user()->id, false, true);
         return view("ad.user-ads", $this->data);
     }
 
