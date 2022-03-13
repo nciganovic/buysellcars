@@ -59,6 +59,7 @@ Route::middleware([Tracker::class])->group(function () {
 
     Route::get('/contact/get', [ContactController::class, 'get_contact'])->name("get_contact");
     Route::post('/contact/post', [ContactController::class, 'post_contact'])->name("post_contact");
+    Route::get('/aboutme', [HomeController::class, 'aboutme'])->name("aboutme");
 });
 
 Route::middleware([CheckIsAdmin::class])->group(function () {

@@ -68,7 +68,7 @@ class CarAdminController extends AdminController
         $cm->is_automatic = $request->has('is_automatic') ? 1 : 0;
         $cm->save();
 
-        $this->add_new_image($request, $cm->id);
+        Image::add_new_image($request, $cm->id);
         
         return redirect()->route("get_admin_car");   
     }
@@ -104,7 +104,7 @@ class CarAdminController extends AdminController
             "user_id" => "required",
             "fuel_id" => "required",
             "engine_emission_id" => "required",
-            'images' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         
         $cm = Car::find($id);

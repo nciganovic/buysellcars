@@ -21,7 +21,7 @@ class Ad extends Model
         return $this->belongsTo(City::class);
     }
 
-    public static function GetItemsForCards(Request $request = null, $skip = 0, $take = 25, $user_id = -1)
+    public static function GetItemsForCards(Request $request = null, $skip = 0, $take = 25, $user_id = -1, $only_active = true)
     {
         $query = Ad::select(["ads.id", "car_models.name AS car_model_name", "brands.name AS brand_name", 
         "cars.km", "ads.price", "cars.year", "images.src", "ads.sale", "ads.is_special"])
@@ -34,8 +34,10 @@ class Ad extends Model
         ->join("cities", "cities.id", "=", "ads.city_id")
         ->join("users", "users.id", "=", "cars.user_id");
         
-        $query = $query->where("ads.is_active", "=", 1)
-        ->where("ads.date_posted", '<=', Carbon::now()->format("Y-m-d"))
+        if($only_active)
+            $query = $query->where("ads.is_active", "=", 1);
+
+        $query = $query->where("ads.date_posted", '<=', Carbon::now()->format("Y-m-d"))
         ->where("ads.date_expires", '>=', Carbon::now()->format("Y-m-d"))
         ->where("ads.is_sold", '=', 0);
 

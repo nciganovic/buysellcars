@@ -47,6 +47,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route("get_contact") }}">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route("aboutme") }}">About me</a>
+                </li>
             </ul>
       </span>
         </div>

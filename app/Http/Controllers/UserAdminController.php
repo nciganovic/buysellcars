@@ -10,8 +10,8 @@ class UserAdminController extends AdminController
     public function get_user()
     {
         $model = new User();
-        $data = User::all();
-        return view("admin.data-table.user", ["data" => $data]);
+        $this->data["data"] = User::all();
+        return view("admin.data-table.user", $this->data);
     }
 
     public function get_create_user()

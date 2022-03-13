@@ -51,4 +51,9 @@ class HomeController extends MyBaseController
         $this->data["brands"] = CarModel::select("id", "name")->where('brand_id', '=', $id)->orderBy('name', 'asc')->get();
         return response()->json(['data' => $this->data["brands"]]);
     }
+
+    public function aboutme()
+    {
+        return view("main.aboutme", $this->data);
+    }
 }

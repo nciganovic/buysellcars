@@ -47,7 +47,7 @@ class AccountController extends MyBaseController
             "first_name" => "required|max:25|alpha",
             "last_name" => "required|max:25|alpha",
             "email" => "required|unique:users|email",
-            "phone_number" => "required|digits:10",//^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$
+            "phone_number" => "required",
             "password" => "required|confirmed|min:8",
         ]);
 
